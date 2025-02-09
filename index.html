@@ -69,19 +69,18 @@
 
 
             // 发送数据到 Google Sheets
-            fetch(scriptURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({ name, email, phone })
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert("Form submitted successfully!");
-                // 自动跳转到 WhatsApp
-                window.location.href = `https://wa.me/?text=Hello%20${encodeURIComponent(name)},%20thank%20you%20for%20registering!`;
-            })
-            .catch(error => console.error("Error:", error));
-        });
+fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone })
+    })
+    .then(response => response.json()) // 解析 JSON
+    .then(data => {
+        alert("Registered successfully!");
+        window.location.href = `https://wa.me/?text=Hi%20${encodeURIComponent(name)},%20thank%20you%20for%20registering!`;
+    })
+    .catch(error => console.error("Error:", error));
+});
     </script>
 
 </body>
